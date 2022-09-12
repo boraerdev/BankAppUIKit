@@ -30,6 +30,7 @@ final class ExpensesViewController: UIViewController {
     
     func collectionViewOps(){
         collectionView.register(HomeSection0CollectionViewCell.self, forCellWithReuseIdentifier: HomeSection0CollectionViewCell.identifier)
+        collectionView.register(ExpensesSection1CollectionViewCell.self, forCellWithReuseIdentifier: ExpensesSection1CollectionViewCell.identifier)
         collectionView.register(section0Header.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: section0Header.identifier)
         collectionView.register(expensesSection1Header.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: expensesSection1Header.identifier)
         
@@ -82,7 +83,7 @@ final class ExpensesViewController: UIViewController {
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .fractionalHeight(0.7)),
+                    heightDimension: .estimated(300)),
                 subitem: item,
                 count: 1
             )
@@ -137,12 +138,29 @@ final class ExpensesViewController: UIViewController {
 
 extension ExpensesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        switch section{
+        case 0:
+            return 10
+        case 1:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection0CollectionViewCell.identifier, for: indexPath) as! HomeSection0CollectionViewCell
-        return cell
+        let  section = indexPath.section
+        switch section {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection0CollectionViewCell.identifier, for: indexPath) as! HomeSection0CollectionViewCell
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExpensesSection1CollectionViewCell.identifier, for: indexPath) as! ExpensesSection1CollectionViewCell
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection0CollectionViewCell.identifier, for: indexPath) as! HomeSection0CollectionViewCell
+            return cell
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
