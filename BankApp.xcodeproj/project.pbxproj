@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A09C4E628CFCA3D00275927 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 0A09C4E528CFCA3D00275927 /* Charts */; };
+		0AB4D03E28D0A37400EEC19E /* ActionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4D03D28D0A37400EEC19E /* ActionsCollectionViewCell.swift */; };
+		0AB4D04028D0CB0400EEC19E /* ChatDialogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4D03F28D0CB0400EEC19E /* ChatDialogCollectionViewCell.swift */; };
+		0AB4D04328D0CDE300EEC19E /* TransactionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4D04228D0CDE300EEC19E /* TransactionsModel.swift */; };
+		0AB4D04528D0CDF200EEC19E /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB4D04428D0CDF200EEC19E /* ChatModel.swift */; };
 		0AC0C4D828CF3438004F363C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0C4D728CF3438004F363C /* AppDelegate.swift */; };
 		0AC0C4DA28CF3438004F363C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0C4D928CF3438004F363C /* SceneDelegate.swift */; };
 		0AC0C4E128CF343A004F363C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0C4E028CF343A004F363C /* Assets.xcassets */; };
@@ -25,6 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AB4D03D28D0A37400EEC19E /* ActionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsCollectionViewCell.swift; sourceTree = "<group>"; };
+		0AB4D03F28D0CB0400EEC19E /* ChatDialogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDialogCollectionViewCell.swift; sourceTree = "<group>"; };
+		0AB4D04228D0CDE300EEC19E /* TransactionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsModel.swift; sourceTree = "<group>"; };
+		0AB4D04428D0CDF200EEC19E /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		0AC0C4D428CF3438004F363C /* BankApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AC0C4D728CF3438004F363C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AC0C4D928CF3438004F363C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,12 +58,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AC0C4F228CF3598004F363C /* SnapKit in Frameworks */,
+				0A09C4E628CFCA3D00275927 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AB4D03C28D0A35600EEC19E /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				0AB4D03D28D0A37400EEC19E /* ActionsCollectionViewCell.swift */,
+				0AB4D03F28D0CB0400EEC19E /* ChatDialogCollectionViewCell.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		0AB4D04128D0CDD300EEC19E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0AB4D04228D0CDE300EEC19E /* TransactionsModel.swift */,
+				0AB4D04428D0CDF200EEC19E /* ChatModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0AC0C4CB28CF3438004F363C = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +102,7 @@
 		0AC0C4D628CF3438004F363C /* BankApp */ = {
 			isa = PBXGroup;
 			children = (
+				0AB4D04128D0CDD300EEC19E /* Model */,
 				0AC0C4ED28CF345B004F363C /* Resources */,
 				0AC0C4EC28CF3455004F363C /* Controller */,
 				0AC0C4EB28CF3451004F363C /* View */,
@@ -85,8 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				0AC0C50228CF5116004F363C /* CollectionHeaders.swift */,
+				0AB4D03C28D0A35600EEC19E /* Chat */,
 				0AC0C50928CF6AE8004F363C /* Expenses */,
-				0AC0C50428CF5152004F363C /* HomeView */,
+				0AC0C50428CF5152004F363C /* Home */,
 				0AC0C4E228CF343A004F363C /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -132,13 +162,13 @@
 			name = Others;
 			sourceTree = "<group>";
 		};
-		0AC0C50428CF5152004F363C /* HomeView */ = {
+		0AC0C50428CF5152004F363C /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				0AC0C50528CF517B004F363C /* HomeSection0CollectionViewCell.swift */,
 				0AC0C50728CF5190004F363C /* HomeSection1CollectionViewCell.swift */,
 			);
-			path = HomeView;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		0AC0C50928CF6AE8004F363C /* Expenses */ = {
@@ -167,6 +197,7 @@
 			name = BankApp;
 			packageProductDependencies = (
 				0AC0C4F128CF3598004F363C /* SnapKit */,
+				0A09C4E528CFCA3D00275927 /* Charts */,
 			);
 			productName = BankApp;
 			productReference = 0AC0C4D428CF3438004F363C /* BankApp.app */;
@@ -198,6 +229,7 @@
 			mainGroup = 0AC0C4CB28CF3438004F363C;
 			packageReferences = (
 				0AC0C4F028CF3598004F363C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0A09C4E428CFCA3D00275927 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 0AC0C4D528CF3438004F363C /* Products */;
 			projectDirPath = "";
@@ -228,14 +260,18 @@
 				0AC0C50828CF5190004F363C /* HomeSection1CollectionViewCell.swift in Sources */,
 				0AC0C50628CF517B004F363C /* HomeSection0CollectionViewCell.swift in Sources */,
 				0AC0C50B28CF6B10004F363C /* ExpensesSection1CollectionViewCell.swift in Sources */,
+				0AB4D03E28D0A37400EEC19E /* ActionsCollectionViewCell.swift in Sources */,
 				0AC0C4F828CF386A004F363C /* HomeViewController.swift in Sources */,
 				0AC0C4F528CF37B2004F363C /* TabBarController.swift in Sources */,
 				0AC0C4FD28CF3898004F363C /* ChatViewController.swift in Sources */,
 				0AC0C4D828CF3438004F363C /* AppDelegate.swift in Sources */,
+				0AB4D04028D0CB0400EEC19E /* ChatDialogCollectionViewCell.swift in Sources */,
 				0AC0C50328CF5116004F363C /* CollectionHeaders.swift in Sources */,
 				0AC0C4DA28CF3438004F363C /* SceneDelegate.swift in Sources */,
+				0AB4D04528D0CDF200EEC19E /* ChatModel.swift in Sources */,
 				0AC0C4FA28CF387F004F363C /* ExpensesViewController.swift in Sources */,
 				0AC0C4FF28CF38A1004F363C /* HistoryViewController.swift in Sources */,
+				0AB4D04328D0CDE300EEC19E /* TransactionsModel.swift in Sources */,
 				0AC0C50128CF38AA004F363C /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +484,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A09C4E428CFCA3D00275927 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		0AC0C4F028CF3598004F363C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -459,6 +503,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A09C4E528CFCA3D00275927 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A09C4E428CFCA3D00275927 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		0AC0C4F128CF3598004F363C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0AC0C4F028CF3598004F363C /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -10,6 +10,13 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
+    let transactions : [TransactionsModel] = [
+        TransactionsModel(amount: -453.23, title: "Steam", desc: "Gaming", image: "image1"),
+        TransactionsModel(amount: 32.43, title: "Salary", desc: "Money Transfer", image: "image2"),
+        TransactionsModel(amount: -156.93, title: "Josh S.", desc: "Money Transfer", image: "image3"),
+        TransactionsModel(amount: 3.23, title: "QQ", desc: "Travel", image: "image4"),
+    ]
+    
     //MARK: UI
     private lazy var leftTitle: UILabel = {
         let lbl = UILabel()
@@ -29,6 +36,7 @@ class HomeViewController: UIViewController {
     private lazy var circleImage : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .label
+        btn.setImage(.init(named: "pp"), for: .normal)
         btn.clipsToBounds = true
         btn.layer.cornerRadius = 20
         return btn
@@ -51,9 +59,16 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         collectionViewOps()
         makeConstraints()
+        
+           let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+          view.addGestureRecognizer(tap)
+        
+        
     }
     
-    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     func makeConstraints()  {
         view.addSubview(leftTitle)
@@ -202,7 +217,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        transactions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -212,7 +227,8 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection0CollectionViewCell.identifier, for: indexPath)
             return cell
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection1CollectionViewCell.identifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection1CollectionViewCell.identifier, for: indexPath) as! HomeSection1CollectionViewCell
+            cell.configure(item: transactions[indexPath.row])
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection0CollectionViewCell.identifier, for: indexPath)

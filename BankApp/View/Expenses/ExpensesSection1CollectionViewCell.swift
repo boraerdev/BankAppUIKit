@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Charts
 
 final class ExpensesSection1CollectionViewCell: UICollectionViewCell {
     static let identifier = "ExpensesSection1CollectionViewCell"
@@ -31,6 +32,8 @@ final class ExpensesSection1CollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     
+    let chart = PieChartView()
+    
     private lazy var calBtn: UIButton = {
         let btn = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 25)
@@ -42,17 +45,16 @@ final class ExpensesSection1CollectionViewCell: UICollectionViewCell {
         return btn
     }()
     
-    private lazy var chart: UIView = chartView()
+    var entries: [ChartDataEntry] = []
     
+    //private lazy var chart: UIView = chartView()
     
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeConstraints()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(pliceCell.self, forCellWithReuseIdentifier: pliceCell.identifier)
+        makeCharts(received: entries, totalExpense: "$3243443")
     }
     
     required init?(coder: NSCoder) {
@@ -64,11 +66,23 @@ final class ExpensesSection1CollectionViewCell: UICollectionViewCell {
         return layout
     }
     
-    func makeConstraints(){
+    func makeCharts(received: [ChartDataEntry], totalExpense: String){
+        entries = received
+        let dataSet = PieChartDataSet(entries: entries, label: "")
+        dataSet.colors = ChartColorTemplates.colorful()
+        chart.data = PieChartData(dataSet: dataSet)
+        amount.text = totalExpense
         chart.snp.makeConstraints { make in
-            make.width.equalTo(170)
-            make.height.equalTo(170)
+            make.width.height.equalTo(250)
         }
+    }
+    
+    func configure(){
+        
+    }
+    
+    func makeConstraints(){
+       
         
         let cell0LeftStack = UIStackView(arrangedSubviews: [totalEx,amount])
         cell0LeftStack.axis = .vertical
@@ -85,7 +99,7 @@ final class ExpensesSection1CollectionViewCell: UICollectionViewCell {
         cell2.axis = .horizontal
         cell2.distribution = .equalSpacing
         
-        let stack = UIStackView(arrangedSubviews: [cell1,cell2])
+        let stack = UIStackView(arrangedSubviews: [cell1,chart])
         stack.axis = .vertical
         stack.distribution = .equalSpacing
         stack.alignment = .fill
@@ -93,121 +107,12 @@ final class ExpensesSection1CollectionViewCell: UICollectionViewCell {
         addSubview(stack)
         stack.snp.makeConstraints { make in
             make.left.top.right.equalToSuperview()
-            make.height.equalTo(230)
+            make.height.equalTo(300)
         }
         
-        addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.right.left.bottom.equalToSuperview()
-            make.height.equalTo(20)
-        }
+
         
     }
-    
-}
-
-extension ExpensesSection1CollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
-    
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        titles.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pliceCell.identifier, for: indexPath) as! pliceCell
-        cell.configure(title: titles[indexPath.row])
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: frame.width/CGFloat(titles.count), height: 20)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        0
-    }
-    
-    
-    
-}
-
-final class pliceCell: UICollectionViewCell {
-    static let identifier = "pliceCell"
-    
-    private lazy var label: UILabel = {
-       let lbl = UILabel()
-        lbl.text = "Test"
-        lbl.textColor = .label
-        lbl.font = .systemFont(ofSize: 12)
-        return lbl
-    }()
-    
-    private lazy var circle: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemRed
-        view.layer.cornerRadius = 4
-        return view
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func makeConstraints(){
-      
-        circle.snp.makeConstraints { make in
-            make.width.height.equalTo(8)
-        }
-        
-        let stack = UIStackView(arrangedSubviews: [circle,label])
-        stack.axis = .horizontal
-        stack.spacing = 4
-        stack.alignment = .center
-        stack.distribution = .fillProportionally
-        addSubview(stack)
-        stack.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-    }
-    
-    func configure(title:String){
-        self.label.text = title
-    }
-    
-}
-
-final class chartView: UIView {
-    
-    private lazy var circle: UIView = {
-       let view = UIView()
-        view.backgroundColor = .red
-        view.layer.cornerRadius = 170/2
-        return view
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        makeConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func makeConstraints(){
-        addSubview(circle)
-        circle.snp.makeConstraints { make in
-            make.width.height.equalTo(170)
-            make.center.equalToSuperview()
-        }
-    }
-    
     
 }
 

@@ -112,10 +112,16 @@ final class section1Header: UICollectionReusableView {
 }
 
 
+protocol expensesSection1HeaderDelegate: AnyObject {
+    func segmentChanged(sender: UISegmentedControl)
+}
+
 //Expenses CollectionView Section1 Header
 final class expensesSection1Header: UICollectionReusableView {
     
     static let identifier = "expensesSection1Header"
+    
+    weak var delegate: expensesSection1HeaderDelegate?
     
     private var segmentedControl: UISegmentedControl = {
        let sc = UISegmentedControl(items: ["Week", "Month","Year"])
@@ -123,9 +129,13 @@ final class expensesSection1Header: UICollectionReusableView {
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributes, for: .selected)
         sc.selectedSegmentTintColor = UIColor(named: "Blue")
-        
+        sc.addTarget(self, action: #selector(changeData), for: .valueChanged)
         return sc
     }()
+    
+    @objc func changeData(sender: UISegmentedControl){
+        delegate?.segmentChanged(sender: sender)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -145,3 +155,45 @@ final class expensesSection1Header: UICollectionReusableView {
     }
     
 }
+
+final class ChatCollectionViewHeader: UICollectionReusableView {
+    
+    static let identifier = "ChatCollectionViewHeader"
+    
+    //MARK: UI
+    private lazy var titleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 16, weight: .bold)
+        return lbl
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        makeConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func makeConstraints(){
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.centerY.left.equalToSuperview()
+        }
+    }
+    
+    func configure(section: Int, title: String){
+        titleLabel.text = title
+        switch section{
+        case 0:
+            titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        case 1:
+            titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        default:
+            titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        }
+    }
+    
+}
+

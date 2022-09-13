@@ -23,22 +23,25 @@ final class TabBarController: UITabBarController {
                     image: UIImage(systemName: "house.fill")
                 ),
                 generateVC(
-                    viewController: UINavigationController(rootViewController: ExpensesViewController()),
+                    viewController: UINavigationController(
+                        rootViewController: ExpensesViewController()),
                     title: "Expenses",
                     image: UIImage(systemName: "chart.pie")
                 ),
                 generateVC(
-                    viewController: ChatViewController(),
+                    viewController: UINavigationController(
+                        rootViewController: ChatViewController()),
                     title: "Chat",
                     image: UIImage(systemName: "message")
                 ),
                 generateVC(
-                    viewController: HistoryViewController(),
+                    viewController: UINavigationController(
+                        rootViewController: HistoryViewController()),
                     title: "Histroy",
                     image: UIImage(systemName: "arrow.uturn.left.circle")
                 ),
                 generateVC(
-                    viewController: SettingsViewController(),
+                    viewController: UINavigationController(rootViewController: SettingsViewController()),
                     title: "Settings",
                     image: UIImage(systemName: "gearshape")
                 )

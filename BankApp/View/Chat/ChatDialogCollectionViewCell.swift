@@ -7,14 +7,18 @@
 
 import UIKit
 
-final class HomeSection1CollectionViewCell: UICollectionViewCell {
+
+
+final class ChatDialogCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "Section1CollectionViewCell"
+    static let identifier = "ChatDialogCollectionViewCell"
+    
+    
     
     //MARK: UI
     private lazy var image: UIImageView = {
        let img = UIImageView()
-        img.backgroundColor = .black
+        img.backgroundColor = .white
         img.layer.cornerRadius = 45/2
         return img
     }()
@@ -35,22 +39,11 @@ final class HomeSection1CollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     
-    private lazy var amount: UILabel = {
-       let lbl = UILabel()
-        lbl.text =  "+180.65"
-        lbl.font = .systemFont(ofSize: 16)
-        lbl.textColor = UIColor.green
-
-        return lbl
-    }()
-    
-    private lazy var currency: UILabel = {
-       let lbl = UILabel()
-        lbl.text =  "USD"
-        lbl.font = .systemFont(ofSize: 12)
-        lbl.textColor = UIColor(named: "Grey")
-
-        return lbl
+    private lazy var badgeCircle: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .init(named: "Blue")
+        return view
     }()
     
     private lazy var divider: UIView = {
@@ -69,6 +62,14 @@ final class HomeSection1CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(item: ChatModel){
+        image.image = .init(named: item.image)
+        title.text = item.authorName
+        desc.text = item.message
+    }
+    
+    
+    
     func makeConstraints(){
         
         image.snp.makeConstraints { make in
@@ -80,8 +81,11 @@ final class HomeSection1CollectionViewCell: UICollectionViewCell {
         
         textStack.spacing = 0
         
+        badgeCircle.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
         
-        let rightStack = UIStackView(arrangedSubviews: [amount,currency])
+        let rightStack = UIStackView(arrangedSubviews: [badgeCircle])
         rightStack.axis = .horizontal
         rightStack.alignment = .bottom
         rightStack.spacing = 4

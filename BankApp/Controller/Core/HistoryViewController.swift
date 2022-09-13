@@ -6,24 +6,59 @@
 //
 
 import UIKit
+import SnapKit
 
-class HistoryViewController: UIViewController {
-
+final class HistoryViewController: UIViewController {
+    
+    let transactions : [TransactionsModel] = [
+        TransactionsModel(amount: -453.23, title: "Steam", desc: "Gaming", image: "image1"),
+        TransactionsModel(amount: 32.43, title: "Salary", desc: "Money Transfer", image: "image2"),
+        TransactionsModel(amount: -156.93, title: "Josh S.", desc: "Money Transfer", image: "image3"),
+        TransactionsModel(amount: 3.23, title: "QQ", desc: "Travel", image: "image4"),
+    ]
+    
+    //MARK: UI
+    private lazy var collencionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = .init(width: view.frame.width, height: 60)
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.delegate = self
+        cv.dataSource = self
+        cv.register(HomeSection1CollectionViewCell.self, forCellWithReuseIdentifier: HomeSection1CollectionViewCell.identifier)
+        return cv
+    }()
+    
+    
+    //MARK: Core Funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        title = "History"
+        makeConstraints()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func makeConstraints(){
+        view.addSubview(collencionView)
+        collencionView.snp.makeConstraints { make in
+            make.right.left.bottom.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
     }
-    */
+    
+}
 
+extension HistoryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        transactions.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection1CollectionViewCell.identifier, for: indexPath) as! HomeSection1CollectionViewCell
+        cell.configure(item: transactions[indexPath.row])
+        return cell
+    }
+    
+   
+    
+    
 }

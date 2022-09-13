@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Charts
 
 final class ExpensesViewController: UIViewController {
     
@@ -16,6 +17,15 @@ final class ExpensesViewController: UIViewController {
         collectionViewLayout: UICollectionViewCompositionalLayout{ sectionIndex, _ -> NSCollectionLayoutSection? in
             return ExpensesViewController.createSEctionLayout(section: sectionIndex)
     })
+    
+    var entriesData = [
+        PieChartDataEntry(value: 2, label: "Travel"),
+        PieChartDataEntry(value: 4, label: "Food"),
+        PieChartDataEntry(value: 21, label: "Transfers"),
+        PieChartDataEntry(value: 5, label: "Others"),
+    ]
+    
+    var totalExpenses: String = "$345987324"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +36,7 @@ final class ExpensesViewController: UIViewController {
         collectionView.dataSource = self
         makeConstraints()
         collectionViewOps()
+        collectionView.isScrollEnabled = false
     }
     
     func collectionViewOps(){
@@ -156,6 +167,7 @@ extension ExpensesViewController: UICollectionViewDataSource, UICollectionViewDe
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExpensesSection1CollectionViewCell.identifier, for: indexPath) as! ExpensesSection1CollectionViewCell
+            cell.makeCharts(received: entriesData, totalExpense: totalExpenses)
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSection0CollectionViewCell.identifier, for: indexPath) as! HomeSection0CollectionViewCell
@@ -176,12 +188,51 @@ extension ExpensesViewController: UICollectionViewDataSource, UICollectionViewDe
             return header
         case 1:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: expensesSection1Header.identifier, for: indexPath) as! expensesSection1Header
+            header.delegate = self
             return header
         default:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: section0Header.identifier, for: indexPath) as! section0Header
-            header.configure(title: "Total Income", desc: "2345235.65")
+            header.configure(title: "Total Income", desc: "$3287324.43")
             return header
         }
+    }
+    
+    
+}
+
+extension ExpensesViewController: expensesSection1HeaderDelegate {
+    func segmentChanged(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            entriesData = [
+                PieChartDataEntry(value: 2, label: "Travel"),
+                PieChartDataEntry(value: 4, label: "Food"),
+                PieChartDataEntry(value: 21, label: "Transfers"),
+                PieChartDataEntry(value: 5, label: "Others"),
+            ]
+            totalExpenses = "$345987324"
+        case 1:
+            entriesData = [
+                PieChartDataEntry(value: 16, label: "Travel"),
+                PieChartDataEntry(value: 40, label: "Food"),
+                PieChartDataEntry(value: 1, label: "Transfers"),
+                PieChartDataEntry(value: 65, label: "Others"),
+            ]
+            totalExpenses = "$39857938"
+
+        case 2:
+            entriesData = [
+                PieChartDataEntry(value: 66, label: "Travel"),
+                PieChartDataEntry(value: 35, label: "Food"),
+                PieChartDataEntry(value: 31, label: "Transfers"),
+                PieChartDataEntry(value: 1, label: "Others"),
+            ]
+            totalExpenses = "$12897456"
+
+        default:
+            print("NaN")
+        }
+        collectionView.reloadData()
     }
     
     
